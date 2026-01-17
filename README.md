@@ -1,2 +1,2 @@
-# marstek_evcc_HA
-Integrating a Marstek Venus-E with Home assistant and EVCC
+# Integrating a Marstek Venus-E V3 with Home assistant and EVCC
+
