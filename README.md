@@ -77,4 +77,8 @@ In EVCC you can use both YAML or the GUI to configure the Marstek Venus-E as 'Ho
     maxdischargepower: 800 
 
 ```
+In the EVCC battery configuration you can set various tresholds. The tresholds determine how the charge power is handled in the EVCC algorythm. In the example below, EVCC will treat charge power as 'excess solar' if the SoC of the Venus-E is >20%. This means other EVCC devices (ex EV charger or heat pump) will get priority over charging the battery.
+
+<img width="865" height="424" alt="" src="https://github.com/user-attachments/assets/8e1610d2-df31-4d09-b8fc-54c1ff289e9b" />
+
 
