@@ -10,6 +10,7 @@ This repository has the sole purpose of describing my personal integration of th
 - Home Assistant Green
 - Home Wizard P1 meter
 - Home network on the Unifi platform
+- Shelly plug S gen 3 outdoor
 
 ## Software
 - Marstek app (only for initial config & software update)
@@ -37,17 +38,43 @@ The RS485 can be used to connect dedicated modbus hardware (ex. LILYGO or Elfin)
 ### Virtual P1 meter
 During testing I found most Wi-Fi connectecions to P1 meters to be unstable. (tested with Marstek CT003 dongle & Home Wizard P1) The [B2500 Meter](https://github.com/tomquist/b2500-meter) add-on for Home Assistant allows you to create a virtual shelly device on your network based on any power sensor available. This virtual device can be assigned to the Marstek Venus. In my case the add-on is pointed towards the "Power" entity of the Home Wizard P1 dongle.
 
-<img width="529" height="380" alt="Screenshot 2026-01-17 at 10 37 18" src="https://github.com/user-attachments/assets/eefc7fbb-bee4-4d0c-b79d-9beeff2e5b95" />
-
+<img width="529" height="380" alt="" src="https://github.com/user-attachments/assets/eefc7fbb-bee4-4d0c-b79d-9beeff2e5b95" />
 
 ### Home assistant
+I've put the Venus-E behind a smart plug with energy measurement. This provides me with independent power/energy readings to for example accuratelty determine the Round trip efficiency (RTE). It also provides me with an additional remote failsafe to disconnect the Venus-E from my installation.
+
 The configuration of the [Marstek Modbus integration](https://github.com/viperrnmc/marstek_venus_modbus) in Home Assistant should be straight forward. Simply point the integration towards the the modbus interface.
 - When using the ethernet port this is simply the IP of the Marstek Venus-E
 - When using the dedicated RS485 port with a dedicated modbus dongle this is the IP of the modbus dongle.
 
 
-<img width="451" height="587" alt="Screenshot 2026-01-17 at 10 40 53" src="https://github.com/user-attachments/assets/a6b62bca-26e9-43a8-b9c1-17cc86966ea6" />
+<img width="225" height="293" alt="" src="https://github.com/user-attachments/assets/a6b62bca-26e9-43a8-b9c1-17cc86966ea6" />
+
+After a successfull configuration, all entities should be auto-discovered.
+
+The Modbus integration gives you full control over the Venus-E. Personally I always use the battery in __anti-feed__ mode without any other manual control.
 
 
 ### EVCC
+I integrate the battery with EVCC as a generic battery. Even though there is a marstek integration for EVCC, i'm making the deliberate choice to limit the amount of modbus requests to the Venus-E.
+
+I'm using the power reading from the smartplug and in my case had to inverse it in Home Assistant trough a helper entity. EVCC expects positive power for discharging and negative power for charging.
+
+In EVCC you can use both YAML or the GUI to configure the Marstek Venus-E as 'Home Assistant' battery.
+
+```
+  - name: marstek_venus
+    type: template
+    template: homeassistant
+    usage: battery
+    uri: http://homeassistant.local:8123 
+    power: sensor.marstek_venus_power_inverse
+    capacity: 5
+    minsoc: 12
+    maxsoc: 100
+    soc: sensor.marstek_venus_battery_soc
+    maxchargepower: 2500 
+    maxdischargepower: 800 
+
+```
 
