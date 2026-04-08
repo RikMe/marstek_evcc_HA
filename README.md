@@ -6,7 +6,7 @@ This repository has the sole purpose of describing my personal integration of th
 ## Hardware
 - Marstek Venus V3
   - Firmware version (EMS) : 145
-  - BMS : 110
+  - BMS : 112
 - Home Assistant Green
 - Home Wizard P1 meter
 - Home network on the Unifi platform
