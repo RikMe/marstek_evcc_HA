@@ -67,7 +67,7 @@ In EVCC you can use both YAML or the GUI to configure the Marstek Venus-E as 'Ho
     type: template
     template: homeassistant
     usage: battery
-    uri: http://homeassistant.local:8123 
+    uri: http://URL OF YOUR HA INSTANCE
     power: sensor.marstek_venus_power_inverse
     capacity: 5
     minsoc: 12
