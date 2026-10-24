@@ -58,6 +58,9 @@ The Modbus integration gives you full control over the Venus-E. Personally I alw
 ### EVCC
 I integrate the battery with EVCC as a generic battery. Even though there is a native direct Marstek conection within EVCC. The native conection would allow for battery controle trough EVCC. Since this is not part of my use case and I want to rely on independent power and energy measurements from the smart plug I'm choosing the 'connect trough Home Assistant' approach.
 
+> [!NOTE]
+> When choosing the direct modbus connection from EVCC: Consider using the built in Modbus proxy in EVCC to limit requests to the Venus-E.
+
 I'm using the power reading from the smartplug and in my case had to inverse it in Home Assistant trough a helper entity. EVCC expects positive power for discharging and negative power for charging.
 
 In EVCC you can use both YAML or the GUI to configure the Marstek Venus-E as 'Home Assistant' battery.
